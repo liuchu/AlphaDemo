@@ -10,10 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
  * Controller
  * Control requests to access pages
  */
-@Controller("/page")
+@Controller
 public class PageController {
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping("/home")
     public ModelAndView viewHome(){
         System.out.println("IN PageController");
         ModelAndView mav = new ModelAndView("home");

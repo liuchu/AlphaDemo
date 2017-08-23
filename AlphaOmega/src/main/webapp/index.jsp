@@ -24,7 +24,7 @@
     <div class="container">
 
         <div class="jumbotron">
-        <h1>欢迎！</h1>
+        <h1>欢迎！AAA</h1>
         <p>这里是Alpha的主页面</p>
         </div>
 

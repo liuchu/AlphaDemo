@@ -18,7 +18,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath*:jdbc.properties</value>
+                <value>classpath:jdbc.properties</value>
                 <!--要是有多个配置文件，只需在这里继续添加即可 -->
             </list>
         </property>
@@ -27,24 +27,24 @@
     <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName">
-            <value>{jdbc.driverClassName}</value>
+            <value>${jdbc.driverClassName}</value>
         </property>
         <property name="url">
-            <value>{jdbc.url}</value>
+            <value>${jdbc.url}</value>
 
         </property>
         <property name="username">
-            <value>{jdbc.username}</value>
+            <value>${jdbc.username}</value>
         </property>
         <property name="password">
-            <value>{jdbc.password}</value>
+            <value>${jdbc.password}</value>
         </property>
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="typeAliasesPackage" value="pojo" />
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:com/chuliu/alpha/mapper/*.xml"/>
+        <!--<property name="mapperLocations" value="classpath:com/chuliu/alpha/mapper/*.xml"/>-->
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -73,9 +73,9 @@
             <value>
                 # some example chain definitions:
                 /index.jsp = anon
-                /admin/** = authc, roles[admin]
-                /docs/** = authc, perms[document:read]
-                /** = authc
+                #/admin/** = authc, roles[admin]
+                #/docs/** = authc, perms[document:read]
+                #/** = authc
                 # more URL-to-FilterChain definitions here
             </value>
         </property>

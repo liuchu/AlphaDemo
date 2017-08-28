@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8"  %>
 <html>
 
 <!-- 新 Bootstrap 核心 CSS 文件 -->
@@ -19,7 +20,6 @@
 </head>
 
 <body>
-
 
     <div class="container">
 

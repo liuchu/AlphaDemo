@@ -1,5 +1,6 @@
 package com.chuliu.alpha.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +16,19 @@ public class PageController {
 
     @RequestMapping("/home")
     public ModelAndView viewHome(){
-        System.out.println("IN PageController");
         ModelAndView mav = new ModelAndView("home");
+        return mav;
+    }
+
+    @RequestMapping("/login")
+    public ModelAndView viewLogin(){
+        ModelAndView mav = new ModelAndView("login");
+        return mav;
+    }
+
+    @RequestMapping("/test")
+    public ModelAndView viewTest(){
+        ModelAndView mav = new ModelAndView("test");
         return mav;
     }
 }

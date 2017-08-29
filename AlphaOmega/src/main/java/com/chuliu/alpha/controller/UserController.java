@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class UserController {
     private static Logger logger = Logger.getLogger(UserController.class);
 
     @RequestMapping("/doLogin")
-    public ModelAndView viewHome(HttpServletRequest request){
+    public ModelAndView doLogin(HttpServletRequest request){
 
         logger.debug("登陆中。。。");
         String email=request.getParameter("inputEmail");
@@ -41,6 +42,20 @@ public class UserController {
         }catch (IncorrectCredentialsException e){
             e.printStackTrace();
         }
+
+        ModelAndView mav = new ModelAndView("redirect:/home");
+        return mav;
+    }
+
+    @RequestMapping("/doLogout")
+    public ModelAndView doLogout(HttpServletRequest request){
+
+        logger.debug("退出中。。。");
+
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+
+        subject.logout();
 
         ModelAndView mav = new ModelAndView("redirect:/home");
         return mav;

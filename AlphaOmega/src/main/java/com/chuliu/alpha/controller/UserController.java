@@ -23,7 +23,7 @@ public class UserController {
     private static Logger logger = Logger.getLogger(UserController.class);
 
     @RequestMapping("/doLogin")
-    public ModelAndView viewHome(HttpServletRequest request){
+    public ModelAndView doLogin(HttpServletRequest request){
 
 
         String email=request.getParameter("inputEmail");
@@ -48,6 +48,20 @@ public class UserController {
 
         Session session = subject.getSession();
         logger.debug("Time out:"+session.getTimeout());
+
+        ModelAndView mav = new ModelAndView("redirect:/home");
+        return mav;
+    }
+
+    @RequestMapping("/doLogout")
+    public ModelAndView doLogout(HttpServletRequest request){
+
+        logger.debug("退出中。。。");
+
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+
+        subject.logout();
 
         ModelAndView mav = new ModelAndView("redirect:/home");
         return mav;

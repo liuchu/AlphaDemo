@@ -61,4 +61,15 @@ public class UserController {
         return mav;
     }
 
+    @RequestMapping("/changeLanguage")
+    public ModelAndView changeLanguage(HttpServletRequest request, String lang){
+
+        logger.debug("切换语言中。。。当前语言为:"+lang);
+
+        ModelAndView mav = new ModelAndView("redirect:/profile");
+        return mav;
+    }
+
+
+
 }

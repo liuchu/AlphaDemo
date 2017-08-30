@@ -16,6 +16,7 @@
 
     <context:annotation-config />
 
+    <!-- Database beans initial BEGIN -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -51,6 +52,8 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="mapper"/>
     </bean>
+
+    <!-- Database beans initial END -->
 
     <!-- Shiro configuration -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -113,7 +116,6 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
-
 
 
 </beans>

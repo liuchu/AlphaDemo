@@ -42,15 +42,13 @@
                                 <a href="#">Link</a>
                             </li>
                         </ul>
-                        <form class="navbar-form navbar-left" role="search">
-                            <shiro:authenticated>
-                             <button type="submit" class="btn btn-default">
-                                 <a id="modal-868745" href="#" role="button" class="btn" data-toggle="modal">
-                                     Create</a>
-                             </button>
 
-                            </shiro:authenticated>
+                        <shiro:authenticated>
+                        <form class="navbar-form navbar-left" role="search">
+                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
+                        </shiro:authenticated>
+
                         <ul class="nav navbar-nav navbar-right">
 
                             <li class="dropdown">
@@ -82,13 +80,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Profile</a>
+                                        <a href="/profile">Profile</a>
                                     </li>
                                     <li>
-                                        <a href="#">keep</a>
+                                        <a href="#">Keep1</a>
                                     </li>
                                     <li>
-                                        <a href="#">keep</a>
+                                        <a href="#">Keep2</a>
                                     </li>
                                     <li class="divider">
                                     </li>

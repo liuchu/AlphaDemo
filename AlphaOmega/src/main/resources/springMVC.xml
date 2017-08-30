@@ -26,6 +26,20 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!-- 国际化资源文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- 表示多语言配置文件在根路径下，以language开头的文件-->
+        <property name="basename" value="WEB-INF/language"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+    <!-- 多语言拦截器所需的LocalResolver -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en_US" />
+        <property name="cookieMaxAge" value="604800"/>
+        <property name="cookieName" value="Lang"/>
+    </bean>
+
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
     <!-- 支持JSON数据格式 -->
     <bean
@@ -66,4 +80,18 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+
+
+    <mvc:interceptors>
+
+        <!-- 拦截修改语言的Request -->
+        <mvc:interceptor>
+            <mvc:mapping path="/user/changeLanguage"/>
+            <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                <property name="paramName" value="lang"/>
+            </bean>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
 </beans>

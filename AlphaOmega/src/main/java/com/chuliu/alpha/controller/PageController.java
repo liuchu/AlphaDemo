@@ -26,9 +26,17 @@ public class PageController {
         return mav;
     }
 
+    @RequestMapping("/profile")
+    public ModelAndView viewProfile(){
+        ModelAndView mav = new ModelAndView("profile");
+        return mav;
+    }
+
     @RequestMapping("/test")
     public ModelAndView viewTest(){
         ModelAndView mav = new ModelAndView("test");
         return mav;
     }
+
+
 }

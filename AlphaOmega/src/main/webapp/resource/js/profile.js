@@ -12,7 +12,7 @@ $(document).ready(function(){
             switch (language) {
                 case "English": language_code = "en_US";
                     break;
-                case "Chinese": language_code = "zh_CN";
+                case "中文": language_code = "zh_CN";
                     break;
                 default : language_code = "en_US";
                     break;

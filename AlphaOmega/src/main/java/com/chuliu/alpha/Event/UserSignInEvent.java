@@ -1,4 +1,4 @@
-package com.chuliu.alpha.Event;
+package com.chuliu.alpha.event;
 
 
 /**

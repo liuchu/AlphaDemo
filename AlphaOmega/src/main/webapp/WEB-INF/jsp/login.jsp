@@ -15,17 +15,18 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<script src="resource/js/login.js"></script>
 
 <div class="container">
     <div class="row clearfix" style="margin-top: 10%">
 
         <div class="col-md-4 column" style="background-color: #ECECEC">
-            <form class="form-horizontal" role="form" action="/user/doLogin" method="post">
+            <form class="form-horizontal" role="form" action="/user/doLogin" method="post" id="login_form">
                 <h2>Sign in</h2>
                 <div class="form-group">
                     <!-- <label for="inputEmail3" class="col-sm-2 control-label">Email</label> -->
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" name="inputEmail" placeholder="email address"/>
+                        <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="email address"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,8 +53,9 @@
 
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">Sign in</button>
+                        <button type="button" class="btn btn-success" id="sign_in">Sign in</button>
                     </div>
+                    <label id="auth_response"></label>
                 </div>
             </form>
         </div>

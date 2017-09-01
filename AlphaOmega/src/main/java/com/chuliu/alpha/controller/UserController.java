@@ -22,9 +22,23 @@ public class UserController {
 
     private static Logger logger = Logger.getLogger(UserController.class);
 
+    @RequestMapping("/doAuthenticate")
+    public String doAuthenticate(HttpServletRequest request){
+        String email=request.getParameter("inputEmail");
+        String password=request.getParameter("inputPassword");
+        logger.debug(email+"验证中。。。");
+        logger.debug("email is:"+email);
+        logger.debug("password is:"+password);
+
+        if ("liuchuu@126.com".equals(email)) {
+            return "{response:username or password error}";
+        }
+
+        return "{response:success}";
+    }
+
     @RequestMapping("/doLogin")
     public ModelAndView doLogin(HttpServletRequest request){
-
 
         String email=request.getParameter("inputEmail");
         String password=request.getParameter("inputPassword");

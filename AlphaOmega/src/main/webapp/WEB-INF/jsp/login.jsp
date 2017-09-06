@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <!-- <label for="inputPassword3" class="col-sm-2 control-label">Password</label> -->
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" name="inputPassword" placeholder="password" />
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="password" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <button type="button" class="btn btn-success" id="sign_in">Sign in</button>
+                        <button type="submit" class="btn btn-success" id="sign_in">Sign in</button>
                     </div>
                     <label id="auth_response"></label>
                 </div>
@@ -76,5 +76,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
+
 </body>
 </html>

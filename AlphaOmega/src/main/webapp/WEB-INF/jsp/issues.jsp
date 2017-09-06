@@ -38,7 +38,7 @@
             <p>Display issues list here</p>
         </div>
 
-        <div class="col-md-8 column">
+        <div class="col-md-4 column">
             <p>Some issue tool here </p>
             <p>Or some tips </p>
         </div>

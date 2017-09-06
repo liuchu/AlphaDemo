@@ -13,6 +13,8 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="resource/js/bootstrap.min.js"></script>
 
+<script src="resource/js/header.js"></script>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column" >
@@ -32,11 +34,11 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="active">
-                                <a href="#">Issues</a>
+                            <li>
+                                <a href="/issues">Issues</a>
                             </li>
                             <li>
-                                <a href="#">My activity </a>
+                                <a href="#">My activity</a>
                             </li>
                             <li>
                                 <a href="#">Link</a>
@@ -46,7 +48,7 @@
                         <shiro:authenticated>
                         <form class="navbar-form navbar-left" role="search">
                              <button type="submit" class="btn btn-default">
-                            <a id="modal-597863" href="#modal-container-597863"  data-toggle="modal">Create</a>
+                            <a href="#my_modal" rel="external nofollow" data-toggle="modal">Create</a>
                              </button>
                         </form>
                         </shiro:authenticated>
@@ -119,7 +121,8 @@
 
 </div>
 
-<div class="modal fade" id="modal-container-597863" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 创建一个话题的弹窗内容 -->
+<div class="modal fade" id="my_modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,16 +132,29 @@
                 </h4>
             </div>
             <div class="modal-body">
-                内容...
+                <form class="form-horizontal" role="form" action="/issue/doCreate" method="post" id="create_form">
+                    <h2>Create topic</h2>
+                    <div class="form-group">
+                        <!-- <label for="inputEmail3" class="col-sm-2 control-label">Email</label> -->
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="summary" name="summary" placeholder="A brief clarification "/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="inputPassword3" class="col-sm-2 control-label">Password</label> -->
+                        <div class="col-sm-10">
+                            <textarea title="Description" class="form-control" id="description" name="description" rows="3"> </textarea>
+                        </div>
+                    </div>
+
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="create_submit">Submit</button>
             </div>
         </div>
 
     </div>
 
 </div>
-
-<!-- Modal container, pop-out when create -->

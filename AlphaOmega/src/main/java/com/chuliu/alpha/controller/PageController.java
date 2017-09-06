@@ -32,6 +32,12 @@ public class PageController {
         return mav;
     }
 
+    @RequestMapping("/issues")
+    public ModelAndView viewIssues(){
+        ModelAndView mav = new ModelAndView("issues");
+        return mav;
+    }
+
     @RequestMapping("/test")
     public ModelAndView viewTest(){
         ModelAndView mav = new ModelAndView("test");

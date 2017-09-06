@@ -1,40 +1,70 @@
 $(document).ready(function(){
 
-    $("#sign_in").click(function () {
-        var email = $("#inputEmail").val();
-        alert(email);
-        if ("liuchuu@126.com"==email){
-            $("#login_form").submit();
-        }else{
-            $("#auth_response").html("Server error");
-        }
-    });
+    $("#login_form").submit(function () {
 
-    //点击登陆按钮
-    function auth() {
+        var result = false;
 
-        alert("authing");
+        /*$.post("/user/doAuthenticate",
+            {
+                inputEmail:$("#inputEmail").val(),
+                inputPassword:$("#inputPassword").val()
+            },
+            function(data,status,jqXHR){
+                //alert("status:"+jqXHR.status);
+
+                if(jqXHR.status == 200){
+                    var jsonObj = JSON.parse(data); //由JSON字符串转换为JSON对象
+                    if (jsonObj.response == "success") {
+                        $("#auth_response").html("success");
+                        this.result = true;
+
+                        //$("#login_form").submit();
+                    }else {
+                        $("#auth_response").html("Username or password NOT correct");
+                    }
+
+                }else{
+                    $("#auth_response").html("Server error");
+                }
+
+            }
+        );*/
+
 
         $.ajax({
-
-            url: "/user/doAuthenticate",
-            contentType: "text/html;charset=UTF-8",
-            context: document.body,
-            type:"POST",
-            dataType:"json",
-            success: function(data){
-                //obj = JSON.parse(data);
-                alert(data);
-                if("{response:success}" ==  data)
-                    $("#auth_response").html(data);
+            url : "/user/doAuthenticate",
+            data : {
+                inputEmail:$("#inputEmail").val(),
+                inputPassword:$("#inputPassword").val()
             },
-            error: function (data) {
-                $("#auth_response").html("Server error");
+            async : false,
+            type:"POST",
+            success : function(data,status,jqXHR){
+                //alert("status:"+jqXHR.status);
+
+                if(jqXHR.status == 200){
+                    var jsonObj = JSON.parse(data); //由JSON字符串转换为JSON对象
+                    if (jsonObj.response == "success") {
+                        result = true;
+                        //$("#login_form").submit();
+                    }else {
+                        $("#auth_response").html("Username or password NOT correct");
+                    }
+
+                }else{
+                    $("#auth_response").html("Server internal error");
+                }
+
+            },
+            error : function (jqXHR) {
+                $("#auth_response").html("can't connect server:");
             }
 
         });
 
-        return false;
-    }
+        return result;
+    });
+
+
 
 });

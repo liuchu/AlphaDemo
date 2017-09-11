@@ -1,0 +1,17 @@
+/* Create table users */
+CREATE TABLE `users_` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `displayName` varchar(32) DEFAULT NULL,
+  `password` VARCHAR(100) NOT NULL,
+  `registerTime` datetime NOT NULL,
+  `lastLoginTime` datetime NOT NULL,
+  `coin` INTEGER(11) DEFAULT 0,
+  `active` TINYINT(1) DEFAULT TRUE,
+  `column_a` varchar(32) DEFAULT NULL,
+  `column_b` varchar(32) DEFAULT NULL,
+  `column_c` varchar(32) DEFAULT NULL,
+  `column_d` varchar(32) DEFAULT NULL,
+  `column_e` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+

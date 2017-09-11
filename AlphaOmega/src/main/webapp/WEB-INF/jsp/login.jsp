@@ -21,7 +21,7 @@
     <div class="row clearfix" style="margin-top: 10%">
 
         <div class="col-md-4 column" style="background-color: #ECECEC">
-            <form class="form-horizontal" role="form" action="/user/doLogin" method="post" id="login_form">
+            <form class="form-horizontal" role="form" action="user/doLogin" method="post" id="login_form">
                 <h2>Sign in</h2>
                 <div class="form-group">
                     <!-- <label for="inputEmail3" class="col-sm-2 control-label">Email</label> -->
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" name="inputRemember"/>Remember me</label>
+                            <label><input type="checkbox" name="inputRemember" id="inputRemember" />Remember me</label>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-sm-10">
                         <div class="span">
                             <p>Not registered?</p>
-                            <p> <a href="/sign">Sign Up</a> | <a href="#">Forgot Password?</a></p>
+                            <p> <a href="sign">Sign Up</a> | <a href="#">Forgot Password?</a></p>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-success" id="sign_in">Sign in</button>
                     </div>
-                    <label id="auth_response"></label>
+                    <label id="auth_response" style="color: red"></label>
                 </div>
             </form>
         </div>

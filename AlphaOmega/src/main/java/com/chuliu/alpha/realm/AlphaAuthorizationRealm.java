@@ -3,8 +3,10 @@ package com.chuliu.alpha.realm;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 /**
  * Created by chuliu on 2017/8/15.
@@ -24,13 +26,14 @@ public class AlphaAuthorizationRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
         logger.debug("正在进行用户验证。。。");
+
         logger.debug("当前用户名:"+token.getUsername());
         logger.debug("当前密码:"+String.valueOf(token.getPassword()));
 
-        logger.debug("当前Credential;:"+token.getCredentials());
-        logger.debug("当前Principal:"+token.getPrincipal());
-        logger.debug("当前Host:"+token.getHost());
+        String email = token.getUsername();
+        /* 假如从数据库里查到的密码为 'abc' */
+        String passFromDB = new Sha256Hash("abc",email,10).toHex();
 
-        return new SimpleAuthenticationInfo(token.getUsername(),token.getPassword(),getName());
+        return new SimpleAuthenticationInfo(email,passFromDB,ByteSource.Util.bytes(email),getName());
     }
 }

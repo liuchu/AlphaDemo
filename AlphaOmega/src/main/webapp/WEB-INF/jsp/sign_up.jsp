@@ -15,14 +15,14 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
-<script src="resource/js/login.js"></script>
+<script src="resource/js/sign_up.js"></script>
 
 <div class="container">
 
-    <div class="row clearfix" style="margin-top: 10%">
+    <div class="row clearfix" style="margin-top: 6%">
        <div>
            <h1>Join us</h1>
-           <p class="lead">Will tak take you less than 2 minutes to complete register</p>
+           <p class="lead text-muted" >Will tak take you less than 2 minutes to complete register</p>
        </div>
 
     </div>
@@ -30,34 +30,72 @@
     <div class="row clearfix" >
 
         <div class="col-md-6 column">
-            <form class="form-horizontal" role="form" action="/user/doLogin" method="post" id="login_form">
+            <form class="form-horizontal" role="form" action="user/doSignUp" method="post" id="sign_up_form">
                 <h2>Create your own account</h2>
-                <div class="form-group">
-                    <p><span for="signUpEmail" class="col-sm-2 control-label">Email</span></p>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="signUpEmail" name="signUpEmail" placeholder="Your email"/>
-                    </div>
-                    <p class="note">This is your email, unique identify of this site, and your login username </p>
-                </div>
-                <div class="form-group">
-                    <p><span for="signUpPassword" class="col-sm-2 control-label">Password</span></p>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="signUpPassword" name="signUpPassword" placeholder="Your password" />
-                    </div>
-                    <p class="note">Set up your password, use at least one lowercase letter, one numeral, and seven characters. </p>
-                </div>
-                <div class="form-group">
-                    <p><span for="confirmPassword" class="col-sm-2 control-label">Confirm</span></p>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" />
-                    </div>
-                    <p class="note">Double confirm your password</p>
-                </div>
+
+                <dl>
+                    <dt><label><strong>Email</strong></label></dt>
+                    <dd>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="email" class="form-control" id="signUpEmail" name="signUpEmail"/>
+                            </div>
+                            <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">This is your email, unique
+                                identify of this site, and your login username. </p>
+                        </div>
+
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt><label><strong>Displayed name</strong></label></dt>
+                    <dd>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="displayName" name="displayName"/>
+                            </div>
+                            <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">
+                                Your name displayed to other folks, you can input your full name
+                                or a fake name.
+                            </p>
+                        </div>
+
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt><label><strong>Password</strong></label></dt>
+                    <dd>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="password" class="form-control" id="signUpPassword" name="signUpPassword" />
+                            </div>
+                            <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">
+                                Set up your password, use atleast one lowercase letter, one numeral,and seven characters.
+                            </p>
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl>
+                    <dt><label><strong>Confirm</strong></label></dt>
+                    <dd>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" />
+                            </div>
+                            <p style="text-indent:1em;margin-bottom: 0em" class="note text-muted">
+                                Double confirm your password.
+                            </p>
+                        </div>
+                    </dd>
+                </dl>
 
                 <div class="form-group">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <button type="submit" class="btn btn-success" id="sign_up">Create Account</button>
                     </div>
+                    <label id="sign_up_response" style="color: red"></label>
                 </div>
             </form>
         </div>

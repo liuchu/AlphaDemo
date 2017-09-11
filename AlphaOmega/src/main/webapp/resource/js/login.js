@@ -3,6 +3,14 @@ $(document).ready(function(){
     $("#login_form").submit(function () {
 
         var result = false;
+        var remember = "no";
+
+        //如果选中，则记住
+        if ($("#inputRemember").is(":checked")){
+            remember = "yes";
+        }
+
+        $("#inputRemember").val(remember);
 
         /*$.post("/user/doAuthenticate",
             {

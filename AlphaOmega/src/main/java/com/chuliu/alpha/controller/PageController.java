@@ -26,6 +26,12 @@ public class PageController {
         return mav;
     }
 
+    @RequestMapping("/sign")
+    public ModelAndView viewSign(){
+        ModelAndView mav = new ModelAndView("sign_up");
+        return mav;
+    }
+
     @RequestMapping("/profile")
     public ModelAndView viewProfile(){
         ModelAndView mav = new ModelAndView("profile");

@@ -46,7 +46,7 @@
                     <div class="col-sm-10">
                         <div class="span">
                             <p>Not registered?</p>
-                            <p> <a href="#">Sign Up</a> | <a href="#">Forgot Password?</a></p>
+                            <p> <a href="/sign">Sign Up</a> | <a href="#">Forgot Password?</a></p>
                         </div>
                     </div>
                 </div>
@@ -65,10 +65,6 @@
         </div>
 
         <div class="col-md-4 column">
-
-        </div>
-
-        <div class="col-md-3 column">
 
         </div>
 

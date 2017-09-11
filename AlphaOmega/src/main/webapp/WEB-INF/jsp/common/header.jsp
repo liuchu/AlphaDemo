@@ -40,9 +40,7 @@
                             <li>
                                 <a href="#">My activity</a>
                             </li>
-                            <li>
-                                <a href="#">Link</a>
-                            </li>
+
                         </ul>
 
                         <shiro:authenticated>

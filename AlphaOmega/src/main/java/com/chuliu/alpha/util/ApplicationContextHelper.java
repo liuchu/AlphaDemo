@@ -15,8 +15,6 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 
     private static ApplicationContext context;
 
-
-
     public static ApplicationContext getApplicationContext(){
         return context;
     }

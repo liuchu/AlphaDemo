@@ -46,11 +46,11 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="typeAliasesPackage" value="pojo" />
         <property name="dataSource" ref="dataSource"/>
-        <!--<property name="mapperLocations" value="classpath:com/chuliu/alpha/mapper/*.xml"/>-->
+        <property name="mapperLocations" value="classpath:com/chuliu/alpha/mapper/*.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="mapper"/>
+        <property name="basePackage" value="com.chuliu.alpha.mapper"/>
     </bean>
 
     <!-- Database beans initial END -->

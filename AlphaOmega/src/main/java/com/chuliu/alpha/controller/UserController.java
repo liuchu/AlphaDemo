@@ -1,17 +1,26 @@
 package com.chuliu.alpha.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chuliu.alpha.realm.AlphaAuthorizationRealm;
+import com.chuliu.alpha.service.UserService;
+import com.chuliu.alpha.service.impl.UserServiceImpl;
+import com.chuliu.alpha.util.ApplicationContextHelper;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.AesCipherService;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
@@ -24,11 +33,25 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserServiceImpl userService;
+
+    AlphaAuthorizationRealm realm;
     private static Logger logger = Logger.getLogger(UserController.class);
 
     @ResponseBody
     @RequestMapping("/doAuthenticate")
     public String doAuthenticate(HttpServletRequest request){
+
+        //将UserService传递给shiro的reaml
+        if(realm==null){
+            ApplicationContext context = ApplicationContextHelper.getApplicationContext();
+            logger.debug("BEGIN context:"+context);
+            realm = (AlphaAuthorizationRealm)context.getBean("myRealm");
+            logger.debug("BEGIN realm:"+realm);
+        }
+        realm.setUserService(userService);
+
         String email=request.getParameter("inputEmail");
         String password=request.getParameter("inputPassword");
         logger.debug(email+"验证中。。。");
@@ -56,6 +79,7 @@ public class UserController {
 
     @RequestMapping("/doLogin")
     public ModelAndView doLogin(HttpServletRequest request){
+
         /*String email=request.getParameter("inputEmail");
         String password=request.getParameter("inputPassword");
 
@@ -66,9 +90,9 @@ public class UserController {
 
         String remember=request.getParameter("inputRemember");
 
-        System.out.println("是否记住:"+remember);
-
-        //如果记住则把session超时设成10天
+        logger.debug("是否记住:"+remember);
+        //如果记住则把session超时设成10天, 默认为2小时
+        SecurityUtils.getSubject().getSession().setTimeout(1000*60*60*24*10);
 
         ModelAndView mav = new ModelAndView("redirect:/home");
         return mav;

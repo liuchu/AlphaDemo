@@ -13,6 +13,11 @@
 
     <context:component-scan base-package="com.chuliu.alpha.controller"/>
     <context:component-scan base-package="com.chuliu.alpha.aspect"/>
+    <context:component-scan base-package="com.chuliu.alpha.dao.*"/>
+    <context:component-scan base-package="com.chuliu.alpha.mapper"/>
+    <context:component-scan base-package="com.chuliu.alpha.pojo"/>
+    <context:component-scan base-package="com.chuliu.alpha.service.*"/>
+    <context:component-scan base-package="com.chuliu.alpha.util"/>
 
     <!-- 开启Spring对AspectJ的支持 -->
     <aop:aspectj-autoproxy/>

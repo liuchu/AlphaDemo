@@ -1,10 +1,11 @@
 /* Create table users */
 CREATE TABLE `users_` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `displayName` varchar(32) DEFAULT NULL,
+  `email` varchar(32) NOT NULL,
+  `displayName` varchar(32) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `registerTime` datetime NOT NULL,
-  `lastLoginTime` datetime NOT NULL,
+  `lastLoginTime` datetime DEFAULT NULL,
   `coin` INTEGER(11) DEFAULT 0,
   `active` TINYINT(1) DEFAULT TRUE,
   `column_a` varchar(32) DEFAULT NULL,
@@ -14,4 +15,14 @@ CREATE TABLE `users_` (
   `column_e` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/* insert a record */
+INSERT INTO
+users_ (email, displayName, password, registerTime)
+VALUES (
+"liuchuu@126.com",
+"Lucky man",
+"1a6b3c469ea87f41a193c5e3b4de63458c632cc255ef5884ca358f618ee0662c",
+NOW()
+)
 

@@ -69,6 +69,7 @@
                 <entry key="anAlias" value-ref="someFilter"/>
             </util:map>
         </property> -->
+
         <property name="loginUrl" value="/login"/>
         <property name="unauthorizedUrl" value="jsp/unauthorized.jsp"/>
         <property name="successUrl" value="/home"/>
@@ -97,16 +98,28 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
         <property name="realm" ref="myRealm"/>
+        <property name="sessionManager" ref="sessionManager"/>
         <!-- By default the servlet container sessions will be used.  Uncomment this line
              to use shiro's native sessions (see the JavaDoc for more): -->
         <!-- <property name="sessionMode" value="native"/> -->
     </bean>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="7200000"/>
+    </bean>
+
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="sha-256"/>
+        <property name="hashIterations" value="10"/>
+        <property name="storedCredentialsHexEncoded" value="true"/>
+    </bean>
+
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <!-- Define the Shiro Realm implementation you want to use to connect to your back-end -->
     <!-- security datasource: -->
     <bean id="myRealm" class="com.chuliu.alpha.realm.AlphaAuthorizationRealm">
-
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
     <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
@@ -114,6 +127,7 @@
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
+
     </bean>
 
 

@@ -293,6 +293,34 @@
                 </executions>
             </plugin>
 
+            <!--利用该插件解决mapper包下面的xml不会被Maven打包的问题-->
+            w
+
+            <!--<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy-xmls</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/java</directory>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+
             <!--<plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2-beta-1</version>

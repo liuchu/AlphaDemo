@@ -3,6 +3,7 @@ package com.chuliu.alpha.dao.impl;
 import com.chuliu.alpha.dao.UserDao;
 import com.chuliu.alpha.mapper.UserMapper;
 import com.chuliu.alpha.pojo.User;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User selectUserByEmail(String email) {
-        User user = userMapper.selectUser("liuchuu@126.com");
+
+        User user = userMapper.selectUser(email);
         return user;
     }
 

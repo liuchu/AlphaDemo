@@ -8,7 +8,7 @@ $(document).ready(function(){
         //如果选中，则记住
         if ($("#inputRemember").is(":checked")){
             remember = "yes";
-        }
+        } 
 
         $("#inputRemember").val(remember);
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
 
 
         $.ajax({
-            url : "/user/doAuthenticate",
+            url : "user/doAuthenticate",
             data : {
                 inputEmail:$("#inputEmail").val(),
                 inputPassword:$("#inputPassword").val()

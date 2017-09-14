@@ -294,7 +294,6 @@
             </plugin>
 
             <!--利用该插件解决mapper包下面的xml不会被Maven打包的问题-->
-            w
 
             <!--<plugin>
                 <artifactId>maven-resources-plugin</artifactId>

@@ -1,6 +1,7 @@
 package com.chuliu.alpha.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chuliu.alpha.pojo.User;
 import com.chuliu.alpha.realm.AlphaAuthorizationRealm;
 import com.chuliu.alpha.service.UserService;
 import com.chuliu.alpha.service.impl.UserServiceImpl;
@@ -90,9 +91,9 @@ public class UserController {
 
         String remember=request.getParameter("inputRemember");
 
-        logger.debug("是否记住:"+remember);
         //如果记住则把session超时设成10天, 默认为2小时
-        SecurityUtils.getSubject().getSession().setTimeout(1000*60*60*24*10);
+        if ("yes".equals(remember))
+            SecurityUtils.getSubject().getSession().setTimeout(1000*60*60*24*10);
 
         ModelAndView mav = new ModelAndView("redirect:/home");
         return mav;
@@ -114,19 +115,18 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/checkUsername")
     public String checkUsername(HttpServletRequest request){
-        String signUpEmail=request.getParameter("signUpEmail");
-        String displayName=request.getParameter("displayName");
-        String signUpPassword=request.getParameter("signUpPassword");
-        logger.debug("检查用户是否存在。。。");
+        String email = request.getParameter("signUpEmail");
 
-        /* Sign up code here */
+        logger.debug("检查用户是否存在。。。");
 
         JSONObject obj = new JSONObject();
 
-        if ("liuchuu@126.com".equals(signUpEmail)) {
-            obj.put("response","fail");
-        }else{
-            obj.put("response","success");
+        User user = userService.getUserByEmail(email);
+
+        if(user!=null){
+            obj.put("response","yes");
+        }else {
+            obj.put("response","no");
         }
 
         return obj.toJSONString();
@@ -134,6 +134,9 @@ public class UserController {
 
     @RequestMapping("/doSignUp")
     public ModelAndView doSignUp(HttpServletRequest request){
+        String email = request.getParameter("signUpEmail");
+        String displayName = request.getParameter("displayName");
+        String password = request.getParameter("signUpPassword");
 
         logger.debug("注册中。。。");
 

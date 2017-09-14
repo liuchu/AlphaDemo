@@ -42,16 +42,15 @@ public class AlphaAuthorizationRealm extends AuthorizingRealm {
         String email = token.getUsername();
         /* 假如从数据库里查到的密码为 'abc' */
         User user = userService.getUserByEmail(email);
+        logger.debug("用户信息:"+user);
 
-        logger.debug(user);
+        //没有该用户的记录
+        if (user == null){
+            return null;
+        }
 
-        String passFromDB = new Sha256Hash("abc",email,10).toHex();
+        return new SimpleAuthenticationInfo(email,user.getPassword(),ByteSource.Util.bytes(email),getName());
 
-        return new SimpleAuthenticationInfo(email,passFromDB,ByteSource.Util.bytes(email),getName());
     }
 
-    public static void main(String[] args) {
-        String passFromDB = new Sha256Hash("nlpo5689","liuchuu@126.com",10).toHex();
-        System.out.println(passFromDB);
-    }
 }

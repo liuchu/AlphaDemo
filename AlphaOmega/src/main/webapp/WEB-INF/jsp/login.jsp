@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                         <div class="checkbox">
-                            <label><input type="checkbox" name="inputRemember" id="inputRemember" />Remember me</label>
+                            <label><input type="checkbox" name="inputRemember" id="inputRemember"/>Remember me</label>
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,11 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+
+<link href="resource/style/bootstrapValidator.css" rel="stylesheet">
+
+<script src="resource/js/bootstrapValidator.js"></script>
+<script src="resource/js/zh_CN.js"></script>
 <script src="resource/js/sign_up.js"></script>
 
 <div class="container">

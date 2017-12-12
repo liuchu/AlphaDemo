@@ -55,7 +55,7 @@
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-success" id="sign_in">Sign in</button>
                     </div>
-                    <label id="auth_response" style="color: red"></label>
+                    <label id="auth_response" style="color: #ff0000"></label>
                 </div>
             </form>
         </div>

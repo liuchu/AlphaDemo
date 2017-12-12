@@ -1,5 +1,6 @@
 package com.chuliu.alpha.service;
 
+import com.chuliu.alpha.exception.UserRegisterException;
 import com.chuliu.alpha.pojo.User;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +14,5 @@ public interface UserService {
     User getUserByEmail(String email);
 
     //创建一个用户
-    void createUser(User user);
+    void createUser(User user) throws UserRegisterException;
 }

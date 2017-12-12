@@ -6,7 +6,9 @@
 <mapper namespace="com.chuliu.alpha.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="User" >
-        /*insert into users_ ( name ) values (#{name})*/
+        INSERT
+        INTO users_ ( email,displayName,password,registerTime )
+        VALUES (#{email},#{displayName},#{password},#{registerTime})
     </insert>
 
     <delete id="deleteUser" parameterType="User" >

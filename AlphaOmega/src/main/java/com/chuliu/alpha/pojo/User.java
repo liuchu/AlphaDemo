@@ -11,7 +11,7 @@ import java.util.List;
  * Created by chuliu on 2017/8/22.
  * pojo User
  */
-@Component
+@Component()
 @Scope("prototype")
 public class User {
 

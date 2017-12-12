@@ -40,7 +40,6 @@ public class AlphaAuthorizationRealm extends AuthorizingRealm {
         logger.debug("当前密码:"+String.valueOf(token.getPassword()));
 
         String email = token.getUsername();
-        /* 假如从数据库里查到的密码为 'abc' */
         User user = userService.getUserByEmail(email);
         logger.debug("用户信息:"+user);
 

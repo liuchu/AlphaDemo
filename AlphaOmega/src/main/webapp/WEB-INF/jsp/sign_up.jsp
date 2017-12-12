@@ -10,17 +10,11 @@
 <html>
 
 <head>
-    <title>login</title>
+    <title>Sign up</title>
 </head>
 
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
-
-<link href="resource/style/bootstrapValidator.css" rel="stylesheet">
-
-<script src="resource/js/bootstrapValidator.js"></script>
-<script src="resource/js/zh_CN.js"></script>
-<script src="resource/js/sign_up.js"></script>
 
 <div class="container">
 
@@ -34,7 +28,7 @@
 
     <div class="row clearfix" >
 
-        <div class="col-md-6 column">
+        <div class="col-md-8 column">
             <form class="form-horizontal" role="form" action="user/doSignUp" method="post" id="sign_up_form">
                 <h2>Create your own account</h2>
 
@@ -44,8 +38,10 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="email" class="form-control" id="signUpEmail" name="signUpEmail"/>
+                                <p class="note text-muted" style="color:red;margin-bottom: 0em;" id="sign_up_p"></p>
                             </div>
-                            <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">This is your email, unique
+
+                            <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em;">This is your email, unique
                                 identify of this site, and your login username. </p>
                         </div>
 
@@ -58,6 +54,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="displayName" name="displayName"/>
+                                <p class="note text-muted" style="color:red;margin-bottom: 0em;" id="display_name_p"></p>
                             </div>
                             <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">
                                 Your name displayed to other folks, you can input your full name
@@ -74,6 +71,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="password" class="form-control" id="signUpPassword" name="signUpPassword" />
+                                <p class="note text-muted" style="color:red;margin-bottom: 0em;" id="sign_password_p"></p>
                             </div>
                             <p class="note text-muted" style="text-indent:1em;margin-bottom: 0em">
                                 Set up your password, use atleast one lowercase letter, one numeral,and seven characters.
@@ -88,6 +86,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" />
+                                <p class="note text-muted" style="color:red;margin-bottom: 0em;" id="confirm_password_p"></p>
                             </div>
                             <p style="text-indent:1em;margin-bottom: 0em" class="note text-muted">
                                 Double confirm your password.
@@ -98,14 +97,14 @@
 
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success" id="sign_up">Create Account</button>
+                        <button type="submit" class="btn btn-success" id="sign_up" name="sign_up">Create Account</button>
                     </div>
                     <label id="sign_up_response" style="color: red"></label>
                 </div>
             </form>
         </div>
 
-        <div class="col-md-6 column">
+        <div class="col-md-4 column">
             <div class="setup-secondary">
                 <div class="setup-info-module">
                     <h2>Usage of Alpha</h2>
@@ -126,6 +125,8 @@
     </div>
 
 </div>
+
+<script src="${pageContext.request.contextPath}/resource/js/sign_up.js"></script>
 
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp"/>
 

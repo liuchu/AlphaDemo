@@ -2,81 +2,71 @@
  * Created by chuliu on 2017/9/11.
  * 注册时的基本验证： 1.是否符合规则 2. 该用户(邮箱)已经注册过。
  */
+
+function show_error(element,element_after,message) {
+    element.css('border','1px solid #FF0000');
+    element_after.html(message);
+
+    $('#sign_up').attr('disabled','disabled');
+
+}
+
+function clear_error(element,element_after,message) {
+    element.css('border','1px solid #08FF57');
+    element_after.html(message);
+    $('#sign_up').removeAttr('disabled');
+}
+
 $(document).ready(function(){
 
+    //Validate email
+    $("#signUpEmail").on("input",function () {
+        var email = $("#signUpEmail").val();
+        var pattern = /^\w+[\w\-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
+
+        if (!pattern.test(email)){
+            show_error($("#signUpEmail"),$("#sign_up_p"),'Email is invalid');
+        }else{
+            clear_error($("#signUpEmail"),$("#sign_up_p"),'');
+        }
+
+    });
+
+    //Validate display name
+    $("#displayName").on("blur",function () {
+        if ('' == $("#displayName").val()){
+            show_error($("#displayName"),$('#display_name_p'),'Full name must not be empty');
+        }else{
+            clear_error($("#displayName"),$("#display_name_p"),'');
+        }
+    });
+    
+    //Validate password
+    $("#signUpPassword").on("blur",function () {
+        var pattern = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
+
+        //密码有字母数字，特殊字符组成
+        if (!pattern.test($("#signUpPassword").val())){
+            show_error($("#signUpPassword"),$('#sign_password_p'),'Password must begin with letter, length more than 6');
+        }else{
+            clear_error($("#signUpPassword"),$("#sign_password_p"),'');
+        }
+    });
+
+    //Validate if confirmed password is the same
     $("#confirmPassword").on("blur",function () {
         //两次密码需要一致
         if ($("#confirmPassword").val() != $("#signUpPassword").val()){
-           alert("password is different");
-       }
+            show_error($("#confirmPassword"),$('#confirm_password_p'),'Password is different');
+        }else{
+            clear_error($("#confirmPassword"),$("#confirm_password_p"),'');
+        }
     });
-
-
-    $("#sign_up_form").bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-        fields: {
-
-                signUpEmail: {
-                    validators: {
-                        notEmpty: {
-                            message: 'email should NOT empty'
-                        },
-                        emailAddress: {
-                            message: 'Wrong email format'
-                        }
-                    }
-                },
-                displayName: {
-                    validators: {
-                        notEmpty: {
-                            message: 'display name should NOT empty'
-                        }
-                    }
-                },
-                signUpPassword: {
-                    validators: {
-                        notEmpty: {
-                            message: 'display name should NOT empty'
-                        },
-                        stringLength: {
-                            min: 6,
-                            max: 18,
-                            message: 'password should '
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: 'Only letter, number and _ allowed'
-                        }
-                    }
-                },
-                confirmPassword: {
-                    validators: {
-                        notEmpty: {
-                            message: 'display name should NOT empty'
-                        },
-                        identical: {
-                            field: 'signUpPassword',
-                            message: 'The password and its confirm are not the same'
-
-                        }
-                    }
-
-                }
-            }
-    });
-
 
 
     $("#sign_up_form").submit(function () {
 
         var result = false;
-
-        $('#defaultForm').bootstrapValidator('validate');
 
         $.ajax({
             url : "user/checkUsername",

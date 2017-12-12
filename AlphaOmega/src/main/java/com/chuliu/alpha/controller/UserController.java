@@ -1,6 +1,7 @@
 package com.chuliu.alpha.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chuliu.alpha.exception.UserRegisterException;
 import com.chuliu.alpha.pojo.User;
 import com.chuliu.alpha.realm.AlphaAuthorizationRealm;
 import com.chuliu.alpha.service.UserService;
@@ -11,6 +12,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,6 +43,9 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+
+    //
+    static ApplicationContext context = ApplicationContextHelper.getApplicationContext();
 
     AlphaAuthorizationRealm realm;
     private static Logger logger = Logger.getLogger(UserController.class);
@@ -125,8 +135,10 @@ public class UserController {
 
         if(user!=null){
             obj.put("response","yes");
+            logger.debug(email+"不存在。。。");
         }else {
             obj.put("response","no");
+            logger.debug(email+"存在。。。");
         }
 
         return obj.toJSONString();
@@ -134,17 +146,55 @@ public class UserController {
 
     @RequestMapping("/doSignUp")
     public ModelAndView doSignUp(HttpServletRequest request){
+
+        JSONObject result = new JSONObject();
+
         String email = request.getParameter("signUpEmail");
         String displayName = request.getParameter("displayName");
         String password = request.getParameter("signUpPassword");
 
+        SimpleHash hash = new SimpleHash("sha-256", password, email, 10);
+        String encodedPassword = hash.toHex();
+
+        //UTC标准时间
+        LocalDateTime registerTime = LocalDateTime.now(ZoneId.of("Europe/London"));
+
         logger.debug("注册中。。。");
 
-        /* Sign up code here */
-        AesCipherService a = new AesCipherService();
+        //User user = (User)context.getBean("user");
+        User user = new User();
 
+        logger.debug("当前注册用户:"+user);
 
-        ModelAndView mav = new ModelAndView("redirect:/home");
+        int affectedRow = 0;
+
+        if (user != null) {
+            user.setEmail(email);
+            user.setDisplayName(displayName);
+            user.setPassword(encodedPassword);
+            user.setRegisterTime(registerTime);
+
+            try {
+                userService.createUser(user);
+                ModelAndView mav = new ModelAndView("redirect:/home");
+                logger.debug(email+"注册成功");
+                return mav;
+            } catch (UserRegisterException e) {
+                e.printStackTrace();
+                ModelAndView mav = new ModelAndView("forward:/error");
+
+                request.setAttribute("exceptionMessage",e.getMessage());
+
+                logger.debug(email+"注册失败");
+                return mav;
+            } finally {
+                logger.debug("");
+            }
+
+        }
+
+        //Default
+        ModelAndView mav = new ModelAndView("redirect:/sign");
         return mav;
     }
 

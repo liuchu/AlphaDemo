@@ -5,6 +5,7 @@ import com.chuliu.alpha.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -26,7 +27,10 @@ public class AlphaAuthorizationRealm extends AuthorizingRealm {
     private static Logger logger = Logger.getLogger(AlphaAuthorizationRealm.class);
 
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+
+        return new SimpleAuthorizationInfo();
     }
 
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {

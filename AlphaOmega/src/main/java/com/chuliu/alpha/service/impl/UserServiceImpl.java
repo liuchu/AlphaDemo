@@ -3,6 +3,7 @@ package com.chuliu.alpha.service.impl;
 import com.chuliu.alpha.dao.UserDao;
 import com.chuliu.alpha.dao.impl.UserDaoImpl;
 import com.chuliu.alpha.exception.UserRegisterException;
+import com.chuliu.alpha.pojo.Group;
 import com.chuliu.alpha.pojo.User;
 import com.chuliu.alpha.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * Created by chuliu on 2017/9/12.
@@ -55,5 +57,15 @@ public class UserServiceImpl implements UserService{
             throw new UserRegisterException("Register account failed");
         }
 
+    }
+
+    @Override
+    public Set<Group> getGroups(String email) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getStringPermissions(String email) {
+        return null;
     }
 }

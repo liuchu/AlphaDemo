@@ -207,6 +207,12 @@ public class UserController {
         return mav;
     }
 
+    public static void main(String[] args) {
+        SimpleHash hash = new SimpleHash("sha-256", "admin", "admin@admin.com", 10);
+        String encodedPassword = hash.toHex();
+        System.out.println(encodedPassword);
+    }
+
 
 
 }

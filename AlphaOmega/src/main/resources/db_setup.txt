@@ -1,11 +1,11 @@
-/* Create table users */
+/* Create table users_ */
 CREATE TABLE `users_` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(32) NOT NULL,
-  `displayName` varchar(32) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `displayName` varchar(32) DEFAULT NULL,
   `password` VARCHAR(100) NOT NULL,
   `registerTime` datetime NOT NULL,
-  `lastLoginTime` datetime DEFAULT NULL,
+  `lastLoginTime` datetime NOT NULL,
   `coin` INTEGER(11) DEFAULT 0,
   `active` TINYINT(1) DEFAULT TRUE,
   `column_a` varchar(32) DEFAULT NULL,
@@ -13,16 +13,104 @@ CREATE TABLE `users_` (
   `column_c` varchar(32) DEFAULT NULL,
   `column_d` varchar(32) DEFAULT NULL,
   `column_e` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+	UNIQUE (`email`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/* insert a record */
-INSERT INTO
-users_ (email, displayName, password, registerTime)
-VALUES (
-"liuchuu@126.com",
-"Lucky man",
-"1a6b3c469ea87f41a193c5e3b4de63458c632cc255ef5884ca358f618ee0662c",
-NOW()
-)
+/* Create table groups_*/
+CREATE TABLE `groups_` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `createdTime` datetime NOT NULL,
+  `createdBy` INTEGER(11) NOT NULL,
+  `column_a` varchar(32) DEFAULT NULL,
+  `column_b` varchar(32) DEFAULT NULL,
+  `column_c` varchar(32) DEFAULT NULL,
+  `column_d` varchar(32) DEFAULT NULL,
+  `column_e` varchar(32) DEFAULT NULL,
+	INDEX createdBy_index (`createdBy`),
+  PRIMARY KEY (`id`),
+	FOREIGN KEY (`createdBy`) REFERENCES users_(`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+	UNIQUE (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+/* Create table permissions_*/
+CREATE TABLE `permissions_` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `column_a` varchar(32) DEFAULT NULL,
+  `column_b` varchar(32) DEFAULT NULL,
+  `column_c` varchar(32) DEFAULT NULL,
+  `column_d` varchar(32) DEFAULT NULL,
+  `column_e` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+	UNIQUE (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/* Create table users_groups_relation */
+CREATE TABLE `users_groups_relation` (
+	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER(11) NOT NULL,
+  `group_id` INTEGER(11) NOT NULL,
+	`column_a` varchar(32) DEFAULT NULL,
+  `column_b` varchar(32) DEFAULT NULL,
+  `column_c` varchar(32) DEFAULT NULL,
+  `column_d` varchar(32) DEFAULT NULL,
+  `column_e` varchar(32) DEFAULT NULL,
+	INDEX ugr_user_id_index (`user_id`),
+	INDEX ugr_group_id_index (`group_id`),
+  PRIMARY KEY (`id`),
+	FOREIGN KEY (`user_id`) REFERENCES users_(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (`group_id`) REFERENCES groups_(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT user_group_unique UNIQUE (user_id,group_id)
+)ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/* Create table groups_permissions_relation */
+CREATE TABLE `groups_permissions_relation` (
+	`id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `group_id` INTEGER(11) NOT NULL,
+  `permission_id` INTEGER(11) NOT NULL,
+	`column_a` varchar(32) DEFAULT NULL,
+  `column_b` varchar(32) DEFAULT NULL,
+  `column_c` varchar(32) DEFAULT NULL,
+  `column_d` varchar(32) DEFAULT NULL,
+  `column_e` varchar(32) DEFAULT NULL,
+	INDEX gpr_user_index (`group_id`),
+	INDEX gpr_group_id_index (`permission_id`),
+  PRIMARY KEY (`id`),
+	FOREIGN KEY (`group_id`) REFERENCES groups_(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (`permission_id`) REFERENCES permissions_(`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT user_group_unique UNIQUE (group_id,permission_id)
+)ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/* Initialize system permissions "admin","post","comment","view", */
+insert into `permissions_`(`id`,`name`) VALUES (10000,'admin');
+insert into `permissions_`(`id`,`name`) VALUES (10004,'post');
+insert into `permissions_`(`id`,`name`) VALUES (10008,'comment');
+insert into `permissions_`(`id`,`name`) VALUES (10012,'view');
+
+/* initial system user admin@admin.com */
+insert into `users_`(`id`,`email`,`displayName`,`password`,`registerTime`,`coin`,`active`)
+VALUES (10000,'admin@admin.com','Admin','041ec9caf203c915814fd8134fea8037e65631e0841fdaa72705d405449aee92',now(),0,1);
+
+/* Initial system groups "Administrators","Contributors","Users"*/
+insert into `groups_`(`id`,`name`,`createdTime`,`createdBy`) VALUES (10000,'Administrators',now(),10000);
+insert into `groups_`(`id`,`name`,`createdTime`,`createdBy`) VALUES (10004,'Contributors',now(),10000);
+insert into `groups_`(`id`,`name`,`createdTime`,`createdBy`) VALUES (10008,'Users',now(),10000);
+
+/* Grant permissions to system groups */
+/* "Administrators" has all permissions*/
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10000,10000,10000);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10004,10000,10004);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10008,10000,10008);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10012,10000,10012);
+/* "Contributors" has all permissions except "admin" */
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10016,10004,10004);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10020,10004,10008);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10024,10004,10012);
+/* "Users" can noly view and comment */
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10028,10008,10008);
+insert into `groups_permissions_relation`(`id`,`group_id`,`permission_id`) VALUES (10024,10008,,10012);
+
+/* Add admin@admin user into "Administrators" group */
+insert into `users_groups_relation`(`id`,`user_id`,`group_id`) VALUES (10000,10000,10000);
